@@ -2,6 +2,7 @@ package contract
 
 import "time"
 
+// Contract represents a contract entity.
 type Contract struct {
 	ID          int       `db:"id" json:"id"`
 	ProjectID   int       `db:"project_id" json:"project_id"`

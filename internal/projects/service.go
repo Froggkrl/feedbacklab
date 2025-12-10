@@ -2,14 +2,16 @@ package projects
 
 import (
 	"context"
+	"innotech/internal/storage/postgres"
 	"innotech/pkg/logger"
 )
 
+// Service defines the interface for project business logic operations.
 type Service interface {
-	Create(ctx context.Context, p *Project) error
-	GetByID(ctx context.Context, id int) (*Project, error)
-	GetAll(ctx context.Context) ([]Project, error)
-	Update(ctx context.Context, p *Project) error
+	Create(ctx context.Context, p *postgres.Project) error
+	GetByID(ctx context.Context, id int) (*postgres.Project, error)
+	GetAll(ctx context.Context) ([]postgres.Project, error)
+	Update(ctx context.Context, p *postgres.Project) error
 	Delete(ctx context.Context, id int) error
 }
 
@@ -17,12 +19,13 @@ type projectService struct {
 	repo Repository
 }
 
+// NewService creates a new Service instance.
 func NewService(repo Repository) Service {
 	logger.Info("project service initialized")
 	return &projectService{repo: repo}
 }
 
-func (s *projectService) Create(ctx context.Context, p *Project) error {
+func (s *projectService) Create(ctx context.Context, p *postgres.Project) error {
 	logger.Info("service: create project",
 		"name", p.Name,
 		"gitlab_project_id", p.GitlabProjectID,
@@ -43,7 +46,7 @@ func (s *projectService) Create(ctx context.Context, p *Project) error {
 	return nil
 }
 
-func (s *projectService) GetByID(ctx context.Context, id int) (*Project, error) {
+func (s *projectService) GetByID(ctx context.Context, id int) (*postgres.Project, error) {
 	logger.Debug("service: get by id", "id", id)
 
 	p, err := s.repo.GetByID(ctx, id)
@@ -62,7 +65,7 @@ func (s *projectService) GetByID(ctx context.Context, id int) (*Project, error) 
 	return p, nil
 }
 
-func (s *projectService) GetAll(ctx context.Context) ([]Project, error) {
+func (s *projectService) GetAll(ctx context.Context) ([]postgres.Project, error) {
 	logger.Debug("service: get all projects")
 
 	ps, err := s.repo.GetAll(ctx)
@@ -79,7 +82,7 @@ func (s *projectService) GetAll(ctx context.Context) ([]Project, error) {
 	return ps, nil
 }
 
-func (s *projectService) Update(ctx context.Context, p *Project) error {
+func (s *projectService) Update(ctx context.Context, p *postgres.Project) error {
 	logger.Info("service: update project",
 		"id", p.ID,
 		"name", p.Name,

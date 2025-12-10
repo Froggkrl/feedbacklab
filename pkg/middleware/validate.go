@@ -9,6 +9,7 @@ import (
 
 var validate = validator.New()
 
+// ValidateBody creates a middleware that validates request body against the provided type.
 func ValidateBody[T any](next fiber.Handler) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var body T

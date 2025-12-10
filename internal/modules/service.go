@@ -1,12 +1,16 @@
 package modules
 
-import "context"
+import (
+	"context"
+	"innotech/internal/storage/postgres"
+)
 
+// Service defines the interface for module business logic operations.
 type Service interface {
-	Create(ctx context.Context, m *Module) error
-	GetByID(ctx context.Context, id int) (*Module, error)
-	GetAll(ctx context.Context) ([]Module, error)
-	Update(ctx context.Context, m *Module) error
+	Create(ctx context.Context, m *postgres.Module) error
+	GetByID(ctx context.Context, id int) (*postgres.Module, error)
+	GetAll(ctx context.Context) ([]postgres.Module, error)
+	Update(ctx context.Context, m *postgres.Module) error
 	Delete(ctx context.Context, id int) error
 }
 
@@ -14,23 +18,24 @@ type moduleService struct {
 	repo Repository
 }
 
+// NewService creates a new Service instance.
 func NewService(repo Repository) Service {
 	return &moduleService{repo: repo}
 }
 
-func (s *moduleService) Create(ctx context.Context, m *Module) error {
+func (s *moduleService) Create(ctx context.Context, m *postgres.Module) error {
 	return s.repo.Create(ctx, m)
 }
 
-func (s *moduleService) GetByID(ctx context.Context, id int) (*Module, error) {
+func (s *moduleService) GetByID(ctx context.Context, id int) (*postgres.Module, error) {
 	return s.repo.GetByID(ctx, id)
 }
 
-func (s *moduleService) GetAll(ctx context.Context) ([]Module, error) {
+func (s *moduleService) GetAll(ctx context.Context) ([]postgres.Module, error) {
 	return s.repo.GetAll(ctx)
 }
 
-func (s *moduleService) Update(ctx context.Context, m *Module) error {
+func (s *moduleService) Update(ctx context.Context, m *postgres.Module) error {
 	return s.repo.Update(ctx, m)
 }
 

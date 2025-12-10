@@ -3,20 +3,22 @@ package health
 import (
 	"context"
 	"fmt"
-	"io"
 	"net/http"
 	"time"
 )
 
-type HealthService interface {
+// Service defines the interface for health check operations.
+type Service interface {
 	Check(ctx context.Context) error
 }
 
+// HTTPHealthService performs health checks via HTTP requests.
 type HTTPHealthService struct {
 	URL     string
 	Timeout time.Duration
 }
 
+// NewHTTPHealthService creates a new HTTPHealthService instance.
 func NewHTTPHealthService(url string, timeout time.Duration) *HTTPHealthService {
 	return &HTTPHealthService{
 		URL:     url,
@@ -24,6 +26,7 @@ func NewHTTPHealthService(url string, timeout time.Duration) *HTTPHealthService 
 	}
 }
 
+// Check performs a health check by making an HTTP request to the configured URL.
 func (h *HTTPHealthService) Check(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, h.Timeout)
 	defer cancel()
@@ -37,12 +40,11 @@ func (h *HTTPHealthService) Check(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("health request failed: %w", err)
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-			fmt.Println("could not close response body")
+	defer func() {
+		if resp != nil && resp.Body != nil {
+			_ = resp.Body.Close()
 		}
-	}(resp.Body)
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("unexpected status: %d", resp.StatusCode)

@@ -1,3 +1,4 @@
+// Package health provides health check functionality for the application.
 package health
 
 import (
@@ -6,11 +7,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// Handler handles HTTP requests for health check operations.
 type Handler struct {
-	service HealthService
+	service Service
 }
 
-func NewHandler(service HealthService) *Handler {
+// NewHandler creates a new Handler instance.
+func NewHandler(service Service) *Handler {
 	return &Handler{service: service}
 }
 

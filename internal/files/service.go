@@ -2,19 +2,22 @@ package files
 
 import (
 	"context"
-	"innotech/pkg/minio"
+	minio_client "innotech/pkg/minio"
 	"log/slog"
 )
 
+// Service defines the interface for files business logic operations.
 type Service struct {
-	minio  *minio.MinioClient
+	minio  *minio_client.MinioClient
 	logger *slog.Logger
 }
 
-func NewService(minioClient *minio.MinioClient, logger *slog.Logger) *Service {
+// NewService creates a new Service instance.
+func NewService(minioClient *minio_client.MinioClient, logger *slog.Logger) *Service {
 	return &Service{minio: minioClient, logger: logger}
 }
 
+// UploadFile creates a new file to MinIO
 func (s *Service) UploadFile(ctx context.Context, filename, path string) (string, error) {
 	s.logger.Info("uploading file", "filename", filename)
 

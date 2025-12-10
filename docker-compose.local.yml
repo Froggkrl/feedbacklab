@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:17.4
-    container_name: innotech_db
+    container_name: feedback_db
     restart: always
     env_file:
       - .env.docker
@@ -74,7 +74,7 @@ services:
 
   app:
     build: .
-    container_name: innotech_app
+    container_name: feedbacklab
     depends_on:
       db:
         condition: service_healthy

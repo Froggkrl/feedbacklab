@@ -1,0 +1,2678 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "API для управления проектами, тикетами и документациейs",
+        "title": "FeedbackLab API",
+        "contact": {},
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/contracts": {
+            "get": {
+                "description": "Returns all contracts",
+                "tags": [
+                    "Contracts"
+                ],
+                "summary": "Get all contracts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/internal_contract.Contract"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Contracts"
+                ],
+                "summary": "Create a new contract",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_contract.Contract"
+                            }
+                        }
+                    },
+                    "description": "Contract Data",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/internal_contract.Contract"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contracts/{id}": {
+            "get": {
+                "description": "Returns a single contract by its ID",
+                "tags": [
+                    "Contracts"
+                ],
+                "summary": "Get contract by ID",
+                "parameters": [
+                    {
+                        "description": "Contract ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/internal_contract.Contract"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Contracts"
+                ],
+                "summary": "Update existing contract",
+                "parameters": [
+                    {
+                        "description": "Contract ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/internal_contract.Contract"
+                            }
+                        }
+                    },
+                    "description": "Updated Contract Data",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/internal_contract.Contract"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Contracts"
+                ],
+                "summary": "Delete contract",
+                "parameters": [
+                    {
+                        "description": "Contract ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/api/documentations": {
+            "get": {
+                "tags": [
+                    "Documentations"
+                ],
+                "summary": "Получить всю документацию",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.Documentation"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Documentations"
+                ],
+                "summary": "Создать новую документацию",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateDocumentationDTO"
+                            }
+                        }
+                    },
+                    "description": "Documentation Data",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Documentation"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/documentations/{id}": {
+            "get": {
+                "tags": [
+                    "Documentations"
+                ],
+                "summary": "Получить документацию по ID",
+                "parameters": [
+                    {
+                        "description": "Documentation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Documentation"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Documentations"
+                ],
+                "summary": "Обновить документацию",
+                "parameters": [
+                    {
+                        "description": "Documentation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateDocumentationDTO"
+                            }
+                        }
+                    },
+                    "description": "Documentation Data",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Documentation"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Documentations"
+                ],
+                "summary": "Удалить документацию",
+                "parameters": [
+                    {
+                        "description": "Documentation ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/modules": {
+            "get": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Получить все модули",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.Module"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Создать новый модуль",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateModuleDTO"
+                            }
+                        }
+                    },
+                    "description": "Module Data",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/modules/{id}": {
+            "get": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Получить модуль по ID",
+                "parameters": [
+                    {
+                        "description": "Module ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Обновить модуль",
+                "parameters": [
+                    {
+                        "description": "Module ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateModuleDTO"
+                            }
+                        }
+                    },
+                    "description": "Module Data",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Удалить модуль",
+                "parameters": [
+                    {
+                        "description": "Module ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Получить все проекты",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.Project"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Создать новый проект",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateProjectDTO"
+                            }
+                        }
+                    },
+                    "description": "Project Data",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Project"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/projects/{id}": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Получить проект по ID",
+                "parameters": [
+                    {
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Project"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Обновить проект",
+                "parameters": [
+                    {
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateProjectDTO"
+                            }
+                        }
+                    },
+                    "description": "Project Data",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Project"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Удалить проект",
+                "parameters": [
+                    {
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user-projects": {
+            "get": {
+                "tags": [
+                    "UserProjects"
+                ],
+                "summary": "Получить все связи пользователь-проект",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.UserProject"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "UserProjects"
+                ],
+                "summary": "Создать новую связь пользователь-проект",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateUserProjectDTO"
+                            }
+                        }
+                    },
+                    "description": "User Project Data",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.UserProject"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user-projects/{user_id}/{project_id}": {
+            "get": {
+                "tags": [
+                    "UserProjects"
+                ],
+                "summary": "Получить связь пользователь-проект",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Project ID",
+                        "name": "project_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.UserProject"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "UserProjects"
+                ],
+                "summary": "Обновить связь пользователь-проект",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Project ID",
+                        "name": "project_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateUserProjectDTO"
+                            }
+                        }
+                    },
+                    "description": "User Project Data",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.UserProject"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "UserProjects"
+                ],
+                "summary": "Удалить связь пользователь-проект",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Project ID",
+                        "name": "project_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/files/upload": {
+            "post": {
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Загрузить файл",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "description": "Файл для загрузки",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "required": [
+                                    "file"
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "description": "возвращает статус OK",
+                "tags": [
+                    "Health"
+                ],
+                "summary": "проверка здоровья сервиса",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/message_attachments/": {
+            "post": {
+                "tags": [
+                    "MessageAttachments"
+                ],
+                "summary": "создать вложение сообщения",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateMessageAttachmentDTO"
+                            }
+                        }
+                    },
+                    "description": "Attachment",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.MessageAttachment"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/message_attachments/chat/{chat_id}": {
+            "get": {
+                "tags": [
+                    "MessageAttachments"
+                ],
+                "summary": "получить все вложения по chat_id",
+                "parameters": [
+                    {
+                        "description": "Chat ID",
+                        "name": "chat_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.MessageAttachment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/message_attachments/{id}": {
+            "get": {
+                "tags": [
+                    "MessageAttachments"
+                ],
+                "summary": "получить вложение по ID",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.MessageAttachment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "MessageAttachments"
+                ],
+                "summary": "обновить вложение",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateMessageAttachmentDTO"
+                            }
+                        }
+                    },
+                    "description": "Attachment",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.MessageAttachment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "MessageAttachments"
+                ],
+                "summary": "удалить вложение",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/ticket_attachments/": {
+            "post": {
+                "tags": [
+                    "TicketAttachments"
+                ],
+                "summary": "создать вложение тикета",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateTicketAttachmentDTO"
+                            }
+                        }
+                    },
+                    "description": "Attachment",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketAttachment"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket_attachments/ticket/{ticket_id}": {
+            "get": {
+                "tags": [
+                    "TicketAttachments"
+                ],
+                "summary": "получить все вложения тикета",
+                "parameters": [
+                    {
+                        "description": "Ticket ID",
+                        "name": "ticket_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketAttachment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket_attachments/{id}": {
+            "get": {
+                "tags": [
+                    "TicketAttachments"
+                ],
+                "summary": "получить вложение по ID",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketAttachment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TicketAttachments"
+                ],
+                "summary": "обновить вложение",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateTicketAttachmentDTO"
+                            }
+                        }
+                    },
+                    "description": "Attachment",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketAttachment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "TicketAttachments"
+                ],
+                "summary": "удалить вложение",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/ticket_chats/": {
+            "post": {
+                "tags": [
+                    "TicketChats"
+                ],
+                "summary": "создание сообщения тикета",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateTicketChatDTO"
+                            }
+                        }
+                    },
+                    "description": "Chat",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketChat"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket_chats/ticket/{ticket_id}": {
+            "get": {
+                "tags": [
+                    "TicketChats"
+                ],
+                "summary": "получить все сообщения тикета",
+                "parameters": [
+                    {
+                        "description": "Ticket ID",
+                        "name": "ticket_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketChat"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket_chats/{id}": {
+            "get": {
+                "tags": [
+                    "TicketChats"
+                ],
+                "summary": "получить сообщение по ID",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketChat"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TicketChats"
+                ],
+                "summary": "обновить сообщение",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateTicketChatDTO"
+                            }
+                        }
+                    },
+                    "description": "Chat",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.TicketChat"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "TicketChats"
+                ],
+                "summary": "удалить сообщение",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/tickets": {
+            "post": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "создать тикет",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.CreateTicketDTO"
+                            }
+                        }
+                    },
+                    "description": "Ticket",
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Ticket"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tickets/": {
+            "get": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "получить все тикеты",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Ticket"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tickets/{id}": {
+            "get": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "получить тикет по ID",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Ticket"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "обновить тикет",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/innotech_internal_storage_transport.UpdateTicketDTO"
+                            }
+                        }
+                    },
+                    "description": "Ticket",
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/innotech_internal_storage_postgres.Ticket"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "удалить тикет",
+                "parameters": [
+                    {
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "innotech_internal_storage_postgres.Documentation": {
+                "type": "object",
+                "properties": {
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.MessageAttachment": {
+                "type": "object",
+                "properties": {
+                    "chat_id": {
+                        "type": "integer"
+                    },
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "file_type": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.Module": {
+                "type": "object",
+                "properties": {
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "responsible_user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.Project": {
+                "type": "object",
+                "properties": {
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "gitlab_project_id": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "mattermost_team": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.Ticket": {
+                "type": "object",
+                "properties": {
+                    "assigned_to": {
+                        "type": "string"
+                    },
+                    "contract_id": {
+                        "type": "integer"
+                    },
+                    "created_by": {
+                        "type": "string"
+                    },
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "gitlab_issue_url": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "mattermost_thread_url": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "module_id": {
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.TicketAttachment": {
+                "type": "object",
+                "properties": {
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "file_type": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "ticket_id": {
+                        "type": "integer"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.TicketChat": {
+                "type": "object",
+                "properties": {
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "mattermost_message_id": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "message_type": {
+                        "type": "string"
+                    },
+                    "sender_id": {
+                        "type": "string"
+                    },
+                    "sender_role": {
+                        "type": "string"
+                    },
+                    "ticket_id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "innotech_internal_storage_postgres.UserProject": {
+                "type": "object",
+                "properties": {
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "permissions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateDocumentationDTO": {
+                "type": "object",
+                "required": [
+                    "file_path",
+                    "project_id"
+                ],
+                "properties": {
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateMessageAttachmentDTO": {
+                "type": "object",
+                "required": [
+                    "chat_id",
+                    "file_path",
+                    "uploaded_by"
+                ],
+                "properties": {
+                    "chat_id": {
+                        "type": "integer"
+                    },
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "file_type": {
+                        "type": "string"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateModuleDTO": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "project_id"
+                ],
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 2
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "responsible_user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateProjectDTO": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "gitlab_project_id": {
+                        "type": "integer"
+                    },
+                    "mattermost_team": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 2
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateTicketAttachmentDTO": {
+                "type": "object",
+                "required": [
+                    "file_path",
+                    "ticket_id",
+                    "uploaded_by"
+                ],
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "file_type": {
+                        "type": "string"
+                    },
+                    "ticket_id": {
+                        "type": "integer"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateTicketChatDTO": {
+                "type": "object",
+                "required": [
+                    "message",
+                    "sender_id",
+                    "sender_role",
+                    "ticket_id"
+                ],
+                "properties": {
+                    "mattermost_message_id": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "message_type": {
+                        "type": "string",
+                        "enum": [
+                            "text",
+                            "file",
+                            "system"
+                        ]
+                    },
+                    "sender_id": {
+                        "type": "string"
+                    },
+                    "sender_role": {
+                        "type": "string",
+                        "enum": [
+                            "customer",
+                            "manager",
+                            "developer",
+                            "tester"
+                        ]
+                    },
+                    "ticket_id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateTicketDTO": {
+                "type": "object",
+                "required": [
+                    "contract_id",
+                    "created_by",
+                    "message",
+                    "project_id",
+                    "title"
+                ],
+                "properties": {
+                    "assigned_to": {
+                        "type": "string"
+                    },
+                    "contract_id": {
+                        "type": "integer"
+                    },
+                    "created_by": {
+                        "type": "string"
+                    },
+                    "gitlab_issue_url": {
+                        "type": "string"
+                    },
+                    "mattermost_thread_url": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "module_id": {
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "open",
+                            "in_progress",
+                            "resolved",
+                            "closed"
+                        ]
+                    },
+                    "title": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.CreateUserProjectDTO": {
+                "type": "object",
+                "required": [
+                    "permissions",
+                    "project_id",
+                    "role",
+                    "user_id"
+                ],
+                "properties": {
+                    "permissions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "viewer",
+                            "editor",
+                            "admin",
+                            "owner"
+                        ]
+                    },
+                    "user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateDocumentationDTO": {
+                "type": "object",
+                "required": [
+                    "file_path"
+                ],
+                "properties": {
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "uploaded_by": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateMessageAttachmentDTO": {
+                "type": "object",
+                "properties": {
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "file_type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateModuleDTO": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 2
+                    },
+                    "responsible_user_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateProjectDTO": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "gitlab_project_id": {
+                        "type": "integer"
+                    },
+                    "mattermost_team": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 2
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateTicketAttachmentDTO": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "file_path": {
+                        "type": "string"
+                    },
+                    "file_type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateTicketChatDTO": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "message_type": {
+                        "type": "string",
+                        "enum": [
+                            "text",
+                            "file",
+                            "system"
+                        ]
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateTicketDTO": {
+                "type": "object",
+                "required": [
+                    "message",
+                    "status",
+                    "title"
+                ],
+                "properties": {
+                    "assigned_to": {
+                        "type": "string"
+                    },
+                    "gitlab_issue_url": {
+                        "type": "string"
+                    },
+                    "mattermost_thread_url": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "open",
+                            "in_progress",
+                            "resolved",
+                            "closed"
+                        ]
+                    },
+                    "title": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                }
+            },
+            "innotech_internal_storage_transport.UpdateUserProjectDTO": {
+                "type": "object",
+                "required": [
+                    "permissions",
+                    "role"
+                ],
+                "properties": {
+                    "permissions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "viewer",
+                            "editor",
+                            "admin",
+                            "owner"
+                        ]
+                    }
+                }
+            },
+            "internal_contract.Contract": {
+                "type": "object",
+                "properties": {
+                    "client_name": {
+                        "type": "string"
+                    },
+                    "date_created": {
+                        "type": "string"
+                    },
+                    "date_updated": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "end_date": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "type": "integer"
+                    },
+                    "start_date": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

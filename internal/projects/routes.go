@@ -1,12 +1,14 @@
 package projects
 
 import (
+	"innotech/internal/storage/transport"
 	"innotech/pkg/logger"
 	"innotech/pkg/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
 
+// RegisterRoutes registers HTTP routes for project operations.
 func RegisterRoutes(app *fiber.App, h *Handler) {
 	api := app.Group("/api/projects")
 
@@ -23,8 +25,8 @@ func RegisterRoutes(app *fiber.App, h *Handler) {
 
 	api.Get("/", h.GetAll)
 	api.Get("/:id", h.GetByID)
-	api.Post("/", middleware.ValidateBody[CreateProjectDTO](h.Create))
-	api.Put("/:id", middleware.ValidateBody[UpdateProjectDTO](h.Update))
+	api.Post("/", middleware.ValidateBody[transport.CreateProjectDTO](h.Create))
+	api.Put("/:id", middleware.ValidateBody[transport.UpdateProjectDTO](h.Update))
 	api.Delete("/:id", h.Delete)
 
 	logger.Info("project routes registration completed",

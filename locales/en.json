@@ -1,0 +1,53 @@
+{
+  "common.error.internal": {
+    "other": "Internal server error"
+  },
+  "common.error.not_found": {
+    "other": "Resource not found"
+  },
+  "common.error.bad_request": {
+    "other": "Bad request"
+  },
+  "common.error.unauthorized": {
+    "other": "Unauthorized"
+  },
+  "common.error.forbidden": {
+    "other": "Forbidden"
+  },
+  "common.error.validation_error": {
+    "other": "Validation error"
+  },
+  "common.success.created": {
+    "other": "Successfully created"
+  },
+  "common.success.updated": {
+    "other": "Successfully updated"
+  },
+  "common.success.deleted": {
+    "other": "Successfully deleted"
+  },
+  "ticket.not_found": {
+    "other": "Ticket not found"
+  },
+  "ticket.created": {
+    "other": "Ticket successfully created"
+  },
+  "ticket.updated": {
+    "other": "Ticket successfully updated"
+  },
+  "ticket.deleted": {
+    "other": "Ticket successfully deleted"
+  },
+  "project.not_found": {
+    "other": "Project not found"
+  },
+  "project.created": {
+    "other": "Project successfully created"
+  },
+  "project.updated": {
+    "other": "Project successfully updated"
+  },
+  "project.deleted": {
+    "other": "Project successfully deleted"
+  }
+}

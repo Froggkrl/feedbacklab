@@ -1,29 +1,36 @@
 package contract
 
-type ContractService struct {
-	repo *ContractRepository
+// Service handles business logic for contract operations.
+type Service struct {
+	repo *Repository
 }
 
-func NewContractService(repo *ContractRepository) *ContractService {
-	return &ContractService{repo: repo}
+// NewService creates a new Service instance.
+func NewService(repo *Repository) *Service {
+	return &Service{repo: repo}
 }
 
-func (s *ContractService) GetAll() ([]Contract, error) {
+// GetAll retrieves all contracts.
+func (s *Service) GetAll() ([]Contract, error) {
 	return s.repo.GetAll()
 }
 
-func (s *ContractService) GetByID(id int) (*Contract, error) {
+// GetByID retrieves a contract by its ID.
+func (s *Service) GetByID(id int) (*Contract, error) {
 	return s.repo.GetByID(id)
 }
 
-func (s *ContractService) Create(c *Contract) error {
+// Create creates a new contract.
+func (s *Service) Create(c *Contract) error {
 	return s.repo.Create(c)
 }
 
-func (s *ContractService) Update(c *Contract) error {
+// Update updates an existing contract.
+func (s *Service) Update(c *Contract) error {
 	return s.repo.Update(c)
 }
 
-func (s *ContractService) Delete(id int) error {
+// Delete deletes a contract by its ID.
+func (s *Service) Delete(id int) error {
 	return s.repo.Delete(id)
 }

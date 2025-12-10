@@ -2,6 +2,7 @@ package tickets
 
 import (
 	"context"
+	"innotech/internal/storage/postgres"
 	"testing"
 	"time"
 
@@ -14,13 +15,13 @@ import (
 func TestTicketRepository_Create_WithReturning(t *testing.T) {
 	mockDB, mock, err := sqlmock.New()
 	require.NoError(t, err)
-	defer mockDB.Close()
+	defer func() { _ = mockDB.Close() }()
 
 	db := sqlx.NewDb(mockDB, "sqlmock")
 	repo := NewRepository(db)
 
 	now := time.Now().UTC()
-	ticket := &Ticket{
+	ticket := &postgres.Ticket{
 		ProjectID:  1,
 		ModuleID:   new(int),
 		ContractID: 2,
@@ -52,13 +53,13 @@ func TestTicketRepository_Create_WithReturning(t *testing.T) {
 func TestTicketRepository_Update_WithReturning(t *testing.T) {
 	mockDB, mock, err := sqlmock.New()
 	require.NoError(t, err)
-	defer mockDB.Close()
+	defer func() { _ = mockDB.Close() }()
 
 	db := sqlx.NewDb(mockDB, "sqlmock")
 	repo := NewRepository(db)
 
 	now := time.Now().UTC()
-	ticket := &Ticket{
+	ticket := &postgres.Ticket{
 		ID:       1,
 		Title:    "Updated",
 		Message:  "New details",
@@ -83,7 +84,7 @@ func TestTicketRepository_Update_WithReturning(t *testing.T) {
 func TestTicketRepository_GetByID_HandlesNullableFields(t *testing.T) {
 	mockDB, mock, err := sqlmock.New()
 	require.NoError(t, err)
-	defer mockDB.Close()
+	defer func() { _ = mockDB.Close() }()
 
 	db := sqlx.NewDb(mockDB, "sqlmock")
 	repo := NewRepository(db)

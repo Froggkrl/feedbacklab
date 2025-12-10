@@ -3,6 +3,7 @@ package tickets
 import (
 	"context"
 	"errors"
+	"innotech/internal/storage/postgres"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -13,28 +14,28 @@ type mockRepository struct {
 	mock.Mock
 }
 
-func (m *mockRepository) Create(ctx context.Context, t *Ticket) error {
+func (m *mockRepository) Create(ctx context.Context, t *postgres.Ticket) error {
 	args := m.Called(ctx, t)
 	return args.Error(0)
 }
 
-func (m *mockRepository) GetByID(ctx context.Context, id int) (*Ticket, error) {
+func (m *mockRepository) GetByID(ctx context.Context, id int) (*postgres.Ticket, error) {
 	args := m.Called(ctx, id)
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).(*Ticket), args.Error(1)
+	return args.Get(0).(*postgres.Ticket), args.Error(1)
 }
 
-func (m *mockRepository) GetAll(ctx context.Context) ([]Ticket, error) {
+func (m *mockRepository) GetAll(ctx context.Context) ([]postgres.Ticket, error) {
 	args := m.Called(ctx)
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
 	}
-	return args.Get(0).([]Ticket), args.Error(1)
+	return args.Get(0).([]postgres.Ticket), args.Error(1)
 }
 
-func (m *mockRepository) Update(ctx context.Context, t *Ticket) error {
+func (m *mockRepository) Update(ctx context.Context, t *postgres.Ticket) error {
 	args := m.Called(ctx, t)
 	return args.Error(0)
 }
@@ -49,9 +50,9 @@ func TestService_Create_SetsStatusAndCallsRepo(t *testing.T) {
 	repo := new(mockRepository)
 	svc := NewService(repo)
 
-	tIn := &Ticket{Title: "t1", Message: "m1"}
+	tIn := &postgres.Ticket{Title: "t1", Message: "m1"}
 
-	repo.On("Create", mock.Anything, tIn).Run(func(args mock.Arguments) {
+	repo.On("Create", mock.Anything, tIn).Run(func(_ mock.Arguments) {
 	}).Return(nil).Once()
 
 	err := svc.Create(ctx, tIn)
@@ -65,7 +66,7 @@ func TestService_Create_RepoError_ReturnsError(t *testing.T) {
 	repo := new(mockRepository)
 	svc := NewService(repo)
 
-	tIn := &Ticket{Title: "t2"}
+	tIn := &postgres.Ticket{Title: "t2"}
 	repo.On("Create", mock.Anything, tIn).Return(errors.New("db error")).Once()
 
 	err := svc.Create(ctx, tIn)
@@ -79,7 +80,7 @@ func TestService_GetByID_ReturnsTicket(t *testing.T) {
 	repo := new(mockRepository)
 	svc := NewService(repo)
 
-	exp := &Ticket{ID: 1, Title: "t"}
+	exp := &postgres.Ticket{ID: 1, Title: "t"}
 	repo.On("GetByID", mock.Anything, 1).Return(exp, nil).Once()
 
 	got, err := svc.GetByID(ctx, 1)
@@ -93,7 +94,7 @@ func TestService_GetAll_ReturnsList(t *testing.T) {
 	repo := new(mockRepository)
 	svc := NewService(repo)
 
-	list := []Ticket{{ID: 1}, {ID: 2}}
+	list := []postgres.Ticket{{ID: 1}, {ID: 2}}
 	repo.On("GetAll", mock.Anything).Return(list, nil).Once()
 
 	got, err := svc.GetAll(ctx)
@@ -107,7 +108,7 @@ func TestService_Update_PassesThrough(t *testing.T) {
 	repo := new(mockRepository)
 	svc := NewService(repo)
 
-	tIn := &Ticket{ID: 5, Title: "t"}
+	tIn := &postgres.Ticket{ID: 5, Title: "t"}
 	repo.On("Update", mock.Anything, tIn).Return(nil).Once()
 
 	err := svc.Update(ctx, tIn)

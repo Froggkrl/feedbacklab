@@ -22,15 +22,19 @@ cmd/server/main.go`
 
 ## 1.5 Полезные команды к docker
 
-| Действие | Команда |
-|-----------|----------|
-| **Запустить** | `docker compose -f docker-compose.local.yml up -d` |
-| **Пересобрать** | `docker compose -f docker-compose.local.yml up --build` |
-| **Остановить** | `docker compose -f docker-compose.local.yml down` |
-| **Удалить контейнеры и volume (БД)** | `docker compose -f docker-compose.local.yml down -v` |
-| **Посмотреть логи** | `docker compose -f docker-compose.local.yml logs -f app` |
-| **Зайти внутрь контейнера API** | `docker exec -it innotech_app sh` |
-| **Зайти в PostgreSQL** | `docker exec -it innotech_db psql -U feedback -d innotech` |
+| Действие                             | Команда                                                    |
+|--------------------------------------|------------------------------------------------------------|
+| **Запустить**                        | `docker compose -f docker-compose.local.yml up -d`         |
+| **Пересобрать**                      | `docker compose -f docker-compose.local.yml up --build`    |
+| **Остановить**                       | `docker compose -f docker-compose.local.yml down`          |
+| **Удалить контейнеры и volume (БД)** | `docker compose -f docker-compose.local.yml down -v`       |
+| **Посмотреть логи**                  | `docker compose -f docker-compose.local.yml logs -f app`   |
+| **Зайти внутрь контейнера API**      | `docker exec -it innotech_app sh`                          |
+| **Зайти в PostgreSQL**               | `docker exec -it innotech_db psql -U feedback -d innotech` |
+| **Провести анализ через dive**       | `dive sha256:код image`                                    |
 
 ## 1.5 Swagger:
 Swagger доступен по ссылке: `http://localhost:8080/swagger/index.html#/`
+
+## 1.6 Dive analyze:
+![dive anylize](./docs/dive.jpeg)

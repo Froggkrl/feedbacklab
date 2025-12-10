@@ -31,7 +31,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Contract"
+                                "$ref": "#/definitions/internal_contract.Contract"
                             }
                         }
                     }
@@ -55,7 +55,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Contract"
+                            "$ref": "#/definitions/internal_contract.Contract"
                         }
                     }
                 ],
@@ -63,7 +63,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Contract"
+                            "$ref": "#/definitions/internal_contract.Contract"
                         }
                     }
                 }
@@ -92,7 +92,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Contract"
+                            "$ref": "#/definitions/internal_contract.Contract"
                         }
                     }
                 }
@@ -122,7 +122,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Contract"
+                            "$ref": "#/definitions/internal_contract.Contract"
                         }
                     }
                 ],
@@ -130,7 +130,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Contract"
+                            "$ref": "#/definitions/internal_contract.Contract"
                         }
                     }
                 }
@@ -164,14 +164,23 @@ const docTemplate = `{
                 "tags": [
                     "Documentations"
                 ],
-                "summary": "Get all documentations",
+                "summary": "Получить всю документацию",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Documentation"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.Documentation"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
                     }
@@ -187,15 +196,15 @@ const docTemplate = `{
                 "tags": [
                     "Documentations"
                 ],
-                "summary": "Create a new documentation",
+                "summary": "Создать новую документацию",
                 "parameters": [
                     {
                         "description": "Documentation Data",
-                        "name": "doc",
+                        "name": "documentation",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Documentation"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateDocumentationDTO"
                         }
                     }
                 ],
@@ -203,7 +212,25 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Documentation"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Documentation"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -217,7 +244,7 @@ const docTemplate = `{
                 "tags": [
                     "Documentations"
                 ],
-                "summary": "Get documentation by ID",
+                "summary": "Получить документацию по ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -231,7 +258,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Documentation"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Documentation"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -246,7 +291,7 @@ const docTemplate = `{
                 "tags": [
                     "Documentations"
                 ],
-                "summary": "Update existing documentation",
+                "summary": "Обновить документацию",
                 "parameters": [
                     {
                         "type": "integer",
@@ -256,12 +301,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Updated Documentation Data",
-                        "name": "doc",
+                        "description": "Documentation Data",
+                        "name": "documentation",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Documentation"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateDocumentationDTO"
                         }
                     }
                 ],
@@ -269,7 +314,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Documentation"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Documentation"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -278,7 +341,7 @@ const docTemplate = `{
                 "tags": [
                     "Documentations"
                 ],
-                "summary": "Delete documentation",
+                "summary": "Удалить документацию",
                 "parameters": [
                     {
                         "type": "integer",
@@ -291,34 +354,59 @@ const docTemplate = `{
                 "responses": {
                     "204": {
                         "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/modules": {
             "get": {
-                "description": "Returns all modules",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Modules"
                 ],
-                "summary": "Get all modules",
+                "summary": "Получить все модули",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Module"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.Module"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
                     }
                 }
             },
             "post": {
-                "description": "Creates a new module entry",
                 "consumes": [
                     "application/json"
                 ],
@@ -328,7 +416,7 @@ const docTemplate = `{
                 "tags": [
                     "Modules"
                 ],
-                "summary": "Create a new module",
+                "summary": "Создать новый модуль",
                 "parameters": [
                     {
                         "description": "Module Data",
@@ -336,7 +424,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Module"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateModuleDTO"
                         }
                     }
                 ],
@@ -344,21 +432,25 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Module"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Module"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -366,14 +458,13 @@ const docTemplate = `{
         },
         "/api/modules/{id}": {
             "get": {
-                "description": "Returns a single module by its ID",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Modules"
                 ],
-                "summary": "Get module by ID",
+                "summary": "Получить модуль по ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -387,27 +478,30 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Module"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Module"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
             },
             "put": {
-                "description": "Updates module details by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -417,7 +511,7 @@ const docTemplate = `{
                 "tags": [
                     "Modules"
                 ],
-                "summary": "Update existing module",
+                "summary": "Обновить модуль",
                 "parameters": [
                     {
                         "type": "integer",
@@ -427,12 +521,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Updated Module Data",
+                        "description": "Module Data",
                         "name": "module",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Module"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateModuleDTO"
                         }
                     }
                 ],
@@ -440,31 +534,34 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Module"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Module"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
             },
             "delete": {
-                "description": "Deletes a module by ID",
                 "tags": [
                     "Modules"
                 ],
-                "summary": "Delete module",
+                "summary": "Удалить модуль",
                 "parameters": [
                     {
                         "type": "integer",
@@ -482,14 +579,18 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -497,28 +598,35 @@ const docTemplate = `{
         },
         "/api/projects": {
             "get": {
-                "description": "Returns all projects",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Projects"
                 ],
-                "summary": "Get all projects",
+                "summary": "Получить все проекты",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Project"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.Project"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
                     }
                 }
             },
             "post": {
-                "description": "Creates a new project entry",
                 "consumes": [
                     "application/json"
                 ],
@@ -528,7 +636,7 @@ const docTemplate = `{
                 "tags": [
                     "Projects"
                 ],
-                "summary": "Create a new project",
+                "summary": "Создать новый проект",
                 "parameters": [
                     {
                         "description": "Project Data",
@@ -536,7 +644,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateProjectDTO"
                         }
                     }
                 ],
@@ -544,21 +652,25 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Project"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -566,14 +678,13 @@ const docTemplate = `{
         },
         "/api/projects/{id}": {
             "get": {
-                "description": "Returns a single project by its ID",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Projects"
                 ],
-                "summary": "Get project by ID",
+                "summary": "Получить проект по ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -587,27 +698,30 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Project"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
             },
             "put": {
-                "description": "Updates project details by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -617,7 +731,7 @@ const docTemplate = `{
                 "tags": [
                     "Projects"
                 ],
-                "summary": "Update existing project",
+                "summary": "Обновить проект",
                 "parameters": [
                     {
                         "type": "integer",
@@ -627,12 +741,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Updated Project Data",
+                        "description": "Project Data",
                         "name": "project",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateProjectDTO"
                         }
                     }
                 ],
@@ -640,31 +754,34 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Project"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Project"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
             },
             "delete": {
-                "description": "Deletes a project by ID",
                 "tags": [
                     "Projects"
                 ],
-                "summary": "Delete project",
+                "summary": "Удалить проект",
                 "parameters": [
                     {
                         "type": "integer",
@@ -682,14 +799,18 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
-                            "additionalProperties": true
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -703,14 +824,23 @@ const docTemplate = `{
                 "tags": [
                     "UserProjects"
                 ],
-                "summary": "Get all user-project relations",
+                "summary": "Получить все связи пользователь-проект",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.UserProject"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.UserProject"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
                     }
@@ -726,15 +856,15 @@ const docTemplate = `{
                 "tags": [
                     "UserProjects"
                 ],
-                "summary": "Create a new user-project",
+                "summary": "Создать новую связь пользователь-проект",
                 "parameters": [
                     {
-                        "description": "UserProject Data",
-                        "name": "relation",
+                        "description": "User Project Data",
+                        "name": "userProject",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UserProject"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateUserProjectDTO"
                         }
                     }
                 ],
@@ -742,13 +872,31 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.UserProject"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.UserProject"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
             }
         },
-        "/api/user-projects/{id}": {
+        "/api/user-projects/{user_id}/{project_id}": {
             "get": {
                 "produces": [
                     "application/json"
@@ -756,12 +904,19 @@ const docTemplate = `{
                 "tags": [
                     "UserProjects"
                 ],
-                "summary": "Get user-project by ID",
+                "summary": "Получить связь пользователь-проект",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "type": "integer",
-                        "description": "UserProject ID",
-                        "name": "id",
+                        "description": "Project ID",
+                        "name": "project_id",
                         "in": "path",
                         "required": true
                     }
@@ -770,7 +925,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.UserProject"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.UserProject"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -785,22 +958,29 @@ const docTemplate = `{
                 "tags": [
                     "UserProjects"
                 ],
-                "summary": "Update user-project relation",
+                "summary": "Обновить связь пользователь-проект",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "UserProject ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "Updated UserProject Data",
-                        "name": "relation",
+                        "type": "integer",
+                        "description": "Project ID",
+                        "name": "project_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User Project Data",
+                        "name": "userProject",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UserProject"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateUserProjectDTO"
                         }
                     }
                 ],
@@ -808,7 +988,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.UserProject"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.UserProject"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         }
                     }
                 }
@@ -817,12 +1015,19 @@ const docTemplate = `{
                 "tags": [
                     "UserProjects"
                 ],
-                "summary": "Delete user-project",
+                "summary": "Удалить связь пользователь-проект",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "type": "integer",
-                        "description": "UserProject ID",
-                        "name": "id",
+                        "description": "Project ID",
+                        "name": "project_id",
                         "in": "path",
                         "required": true
                     }
@@ -830,6 +1035,76 @@ const docTemplate = `{
                 "responses": {
                     "204": {
                         "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/files/upload": {
+            "post": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Загрузить файл",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Файл для загрузки",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
@@ -876,7 +1151,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/message_attachments.CreateMessageAttachmentDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateMessageAttachmentDTO"
                         }
                     }
                 ],
@@ -884,7 +1159,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/message_attachments.MessageAttachment"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.MessageAttachment"
                         }
                     }
                 }
@@ -914,7 +1189,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/message_attachments.MessageAttachment"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.MessageAttachment"
                             }
                         }
                     }
@@ -943,7 +1218,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/message_attachments.MessageAttachment"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.MessageAttachment"
                         }
                     }
                 }
@@ -973,7 +1248,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/message_attachments.UpdateMessageAttachmentDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateMessageAttachmentDTO"
                         }
                     }
                 ],
@@ -981,7 +1256,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/message_attachments.MessageAttachment"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.MessageAttachment"
                         }
                     }
                 }
@@ -1026,7 +1301,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ticket_attachments.CreateTicketAttachmentDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateTicketAttachmentDTO"
                         }
                     }
                 ],
@@ -1034,7 +1309,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/ticket_attachments.TicketAttachment"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.TicketAttachment"
                         }
                     }
                 }
@@ -1064,7 +1339,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/ticket_attachments.TicketAttachment"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.TicketAttachment"
                             }
                         }
                     }
@@ -1093,7 +1368,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ticket_attachments.TicketAttachment"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.TicketAttachment"
                         }
                     }
                 }
@@ -1123,7 +1398,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ticket_attachments.UpdateTicketAttachmentDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateTicketAttachmentDTO"
                         }
                     }
                 ],
@@ -1131,7 +1406,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ticket_attachments.TicketAttachment"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.TicketAttachment"
                         }
                     }
                 }
@@ -1176,7 +1451,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ticket_chats.CreateTicketChatDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateTicketChatDTO"
                         }
                     }
                 ],
@@ -1184,7 +1459,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/ticket_chats.TicketChat"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.TicketChat"
                         }
                     },
                     "400": {
@@ -1223,7 +1498,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/ticket_chats.TicketChat"
+                                "$ref": "#/definitions/innotech_internal_storage_postgres.TicketChat"
                             }
                         }
                     }
@@ -1252,7 +1527,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ticket_chats.TicketChat"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.TicketChat"
                         }
                     },
                     "404": {
@@ -1291,7 +1566,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ticket_chats.UpdateTicketChatDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateTicketChatDTO"
                         }
                     }
                 ],
@@ -1299,7 +1574,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ticket_chats.TicketChat"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.TicketChat"
                         }
                     }
                 }
@@ -1344,7 +1619,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/tickets.CreateTicketDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.CreateTicketDTO"
                         }
                     }
                 ],
@@ -1352,7 +1627,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/tickets.Ticket"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Ticket"
                         }
                     },
                     "400": {
@@ -1380,7 +1655,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/tickets.Ticket"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Ticket"
                         }
                     },
                     "404": {
@@ -1417,7 +1692,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/tickets.Ticket"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Ticket"
                         }
                     },
                     "404": {
@@ -1456,7 +1731,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/tickets.UpdateTicketDTO"
+                            "$ref": "#/definitions/innotech_internal_storage_transport.UpdateTicketDTO"
                         }
                     }
                 ],
@@ -1464,7 +1739,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/tickets.Ticket"
+                            "$ref": "#/definitions/innotech_internal_storage_postgres.Ticket"
                         }
                     }
                 }
@@ -1492,7 +1767,263 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "message_attachments.CreateMessageAttachmentDTO": {
+        "innotech_internal_storage_postgres.Documentation": {
+            "type": "object",
+            "properties": {
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "file_path": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "uploaded_by": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.MessageAttachment": {
+            "type": "object",
+            "properties": {
+                "chat_id": {
+                    "type": "integer"
+                },
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "file_path": {
+                    "type": "string"
+                },
+                "file_type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "uploaded_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.Module": {
+            "type": "object",
+            "properties": {
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "responsible_user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.Project": {
+            "type": "object",
+            "properties": {
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "gitlab_project_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mattermost_team": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.Ticket": {
+            "type": "object",
+            "properties": {
+                "assigned_to": {
+                    "type": "string"
+                },
+                "contract_id": {
+                    "type": "integer"
+                },
+                "created_by": {
+                    "type": "string"
+                },
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "gitlab_issue_url": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mattermost_thread_url": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "module_id": {
+                    "type": "integer"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.TicketAttachment": {
+            "type": "object",
+            "properties": {
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "file_path": {
+                    "type": "string"
+                },
+                "file_type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ticket_id": {
+                    "type": "integer"
+                },
+                "uploaded_by": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.TicketChat": {
+            "type": "object",
+            "properties": {
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mattermost_message_id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "message_type": {
+                    "type": "string"
+                },
+                "sender_id": {
+                    "type": "string"
+                },
+                "sender_role": {
+                    "type": "string"
+                },
+                "ticket_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "innotech_internal_storage_postgres.UserProject": {
+            "type": "object",
+            "properties": {
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_transport.CreateDocumentationDTO": {
+            "type": "object",
+            "required": [
+                "file_path",
+                "project_id"
+            ],
+            "properties": {
+                "file_path": {
+                    "type": "string"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "uploaded_by": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_transport.CreateMessageAttachmentDTO": {
             "type": "object",
             "required": [
                 "chat_id",
@@ -1514,162 +2045,52 @@ const docTemplate = `{
                 }
             }
         },
-        "message_attachments.MessageAttachment": {
+        "innotech_internal_storage_transport.CreateModuleDTO": {
             "type": "object",
+            "required": [
+                "name",
+                "project_id"
+            ],
             "properties": {
-                "chat_id": {
-                    "type": "integer"
-                },
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
-                "file_path": {
-                    "type": "string"
-                },
-                "file_type": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "uploaded_by": {
-                    "type": "string"
-                }
-            }
-        },
-        "message_attachments.UpdateMessageAttachmentDTO": {
-            "type": "object",
-            "properties": {
-                "file_path": {
-                    "type": "string"
-                },
-                "file_type": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Contract": {
-            "type": "object",
-            "properties": {
-                "client_name": {
-                    "type": "string"
-                },
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
                 "description": {
                     "type": "string"
-                },
-                "end_date": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "project_id": {
-                    "type": "integer"
-                },
-                "start_date": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Documentation": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "type": "string"
-                },
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
-                "file_url": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "project_id": {
-                    "type": "integer"
-                },
-                "title": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Module": {
-            "type": "object",
-            "properties": {
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
                 },
                 "project_id": {
                     "type": "integer"
+                },
+                "responsible_user_id": {
+                    "type": "string"
                 }
             }
         },
-        "models.Project": {
+        "innotech_internal_storage_transport.CreateProjectDTO": {
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
                 "description": {
                     "type": "string"
                 },
-                "id": {
+                "gitlab_project_id": {
                     "type": "integer"
+                },
+                "mattermost_team": {
+                    "type": "string"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
                 }
             }
         },
-        "models.UserProject": {
-            "type": "object",
-            "properties": {
-                "date_added": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "project_id": {
-                    "type": "integer"
-                },
-                "role": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "ticket_attachments.CreateTicketAttachmentDTO": {
+        "innotech_internal_storage_transport.CreateTicketAttachmentDTO": {
             "type": "object",
             "required": [
                 "file_path",
@@ -1694,50 +2115,7 @@ const docTemplate = `{
                 }
             }
         },
-        "ticket_attachments.TicketAttachment": {
-            "type": "object",
-            "properties": {
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "file_path": {
-                    "type": "string"
-                },
-                "file_type": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "ticket_id": {
-                    "type": "integer"
-                },
-                "uploaded_by": {
-                    "type": "string"
-                }
-            }
-        },
-        "ticket_attachments.UpdateTicketAttachmentDTO": {
-            "type": "object",
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "file_path": {
-                    "type": "string"
-                },
-                "file_type": {
-                    "type": "string"
-                }
-            }
-        },
-        "ticket_chats.CreateTicketChatDTO": {
+        "innotech_internal_storage_transport.CreateTicketChatDTO": {
             "type": "object",
             "required": [
                 "message",
@@ -1778,56 +2156,7 @@ const docTemplate = `{
                 }
             }
         },
-        "ticket_chats.TicketChat": {
-            "type": "object",
-            "properties": {
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "mattermost_message_id": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "message_type": {
-                    "type": "string"
-                },
-                "sender_id": {
-                    "type": "string"
-                },
-                "sender_role": {
-                    "type": "string"
-                },
-                "ticket_id": {
-                    "type": "integer"
-                }
-            }
-        },
-        "ticket_chats.UpdateTicketChatDTO": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "message_type": {
-                    "type": "string",
-                    "enum": [
-                        "text",
-                        "file",
-                        "system"
-                    ]
-                }
-            }
-        },
-        "tickets.CreateTicketDTO": {
+        "innotech_internal_storage_transport.CreateTicketDTO": {
             "type": "object",
             "required": [
                 "contract_id",
@@ -1877,51 +2206,139 @@ const docTemplate = `{
                 }
             }
         },
-        "tickets.Ticket": {
+        "innotech_internal_storage_transport.CreateUserProjectDTO": {
             "type": "object",
+            "required": [
+                "permissions",
+                "project_id",
+                "role",
+                "user_id"
+            ],
             "properties": {
-                "assigned_to": {
-                    "type": "string"
-                },
-                "contract_id": {
-                    "type": "integer"
-                },
-                "created_by": {
-                    "type": "string"
-                },
-                "date_created": {
-                    "type": "string"
-                },
-                "date_updated": {
-                    "type": "string"
-                },
-                "gitlab_issue_url": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "mattermost_thread_url": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "module_id": {
-                    "type": "integer"
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "project_id": {
                     "type": "integer"
                 },
-                "status": {
-                    "type": "string"
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "viewer",
+                        "editor",
+                        "admin",
+                        "owner"
+                    ]
                 },
-                "title": {
+                "user_id": {
                     "type": "string"
                 }
             }
         },
-        "tickets.UpdateTicketDTO": {
+        "innotech_internal_storage_transport.UpdateDocumentationDTO": {
+            "type": "object",
+            "required": [
+                "file_path"
+            ],
+            "properties": {
+                "file_path": {
+                    "type": "string"
+                },
+                "uploaded_by": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_transport.UpdateMessageAttachmentDTO": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string"
+                },
+                "file_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_transport.UpdateModuleDTO": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
+                },
+                "responsible_user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_transport.UpdateProjectDTO": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "gitlab_project_id": {
+                    "type": "integer"
+                },
+                "mattermost_team": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 2
+                }
+            }
+        },
+        "innotech_internal_storage_transport.UpdateTicketAttachmentDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "file_path": {
+                    "type": "string"
+                },
+                "file_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "innotech_internal_storage_transport.UpdateTicketChatDTO": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "message_type": {
+                    "type": "string",
+                    "enum": [
+                        "text",
+                        "file",
+                        "system"
+                    ]
+                }
+            }
+        },
+        "innotech_internal_storage_transport.UpdateTicketDTO": {
             "type": "object",
             "required": [
                 "message",
@@ -1956,18 +2373,71 @@ const docTemplate = `{
                     "minLength": 3
                 }
             }
+        },
+        "innotech_internal_storage_transport.UpdateUserProjectDTO": {
+            "type": "object",
+            "required": [
+                "permissions",
+                "role"
+            ],
+            "properties": {
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "viewer",
+                        "editor",
+                        "admin",
+                        "owner"
+                    ]
+                }
+            }
+        },
+        "internal_contract.Contract": {
+            "type": "object",
+            "properties": {
+                "client_name": {
+                    "type": "string"
+                },
+                "date_created": {
+                    "type": "string"
+                },
+                "date_updated": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "project_id": {
+                    "type": "integer"
+                },
+                "start_date": {
+                    "type": "string"
+                }
+            }
         }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
-	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Version:          "0.1",
+	Host:             "localhost:8080",
+	BasePath:         "/api",
+	Schemes:          []string{"http"},
+	Title:            "FeedbackLab API",
+	Description:      "API для управления проектами, тикетами и документациейs",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,0 +1,53 @@
+{
+  "common.error.internal": {
+    "other": "Внутренняя ошибка сервера"
+  },
+  "common.error.not_found": {
+    "other": "Ресурс не найден"
+  },
+  "common.error.bad_request": {
+    "other": "Неверный запрос"
+  },
+  "common.error.unauthorized": {
+    "other": "Не авторизован"
+  },
+  "common.error.forbidden": {
+    "other": "Доступ запрещен"
+  },
+  "common.error.validation_error": {
+    "other": "Ошибка валидации"
+  },
+  "common.success.created": {
+    "other": "Успешно создано"
+  },
+  "common.success.updated": {
+    "other": "Успешно обновлено"
+  },
+  "common.success.deleted": {
+    "other": "Успешно удалено"
+  },
+  "ticket.not_found": {
+    "other": "Тикет не найден"
+  },
+  "ticket.created": {
+    "other": "Тикет успешно создан"
+  },
+  "ticket.updated": {
+    "other": "Тикет успешно обновлен"
+  },
+  "ticket.deleted": {
+    "other": "Тикет успешно удален"
+  },
+  "project.not_found": {
+    "other": "Проект не найден"
+  },
+  "project.created": {
+    "other": "Проект успешно создан"
+  },
+  "project.updated": {
+    "other": "Проект успешно обновлен"
+  },
+  "project.deleted": {
+    "other": "Проект успешно удален"
+  }
+}

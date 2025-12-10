@@ -2,16 +2,18 @@ package projects
 
 import (
 	"context"
+	"innotech/internal/storage/postgres"
 	"innotech/pkg/logger"
 
 	"github.com/jmoiron/sqlx"
 )
 
+// Repository defines the interface for project data access operations.
 type Repository interface {
-	Create(ctx context.Context, p *Project) error
-	GetByID(ctx context.Context, id int) (*Project, error)
-	GetAll(ctx context.Context) ([]Project, error)
-	Update(ctx context.Context, p *Project) error
+	Create(ctx context.Context, p *postgres.Project) error
+	GetByID(ctx context.Context, id int) (*postgres.Project, error)
+	GetAll(ctx context.Context) ([]postgres.Project, error)
+	Update(ctx context.Context, p *postgres.Project) error
 	Delete(ctx context.Context, id int) error
 }
 
@@ -19,12 +21,13 @@ type projectRepository struct {
 	db *sqlx.DB
 }
 
+// NewRepository creates a new Repository instance.
 func NewRepository(db *sqlx.DB) Repository {
 	logger.Info("project repository initialized")
 	return &projectRepository{db: db}
 }
 
-func (r *projectRepository) Create(ctx context.Context, p *Project) error {
+func (r *projectRepository) Create(ctx context.Context, p *postgres.Project) error {
 	logger.Debug("repo: create project start",
 		"name", p.Name,
 		"gitlab_project_id", p.GitlabProjectID,
@@ -58,10 +61,10 @@ func (r *projectRepository) Create(ctx context.Context, p *Project) error {
 	return nil
 }
 
-func (r *projectRepository) GetByID(ctx context.Context, id int) (*Project, error) {
+func (r *projectRepository) GetByID(ctx context.Context, id int) (*postgres.Project, error) {
 	logger.Debug("repo: get project by id", "id", id)
 
-	var p Project
+	var p postgres.Project
 	err := r.db.GetContext(ctx, &p, "SELECT * FROM projects WHERE id=$1", id)
 	if err != nil {
 		logger.Error("repo: get by id failed",
@@ -78,10 +81,10 @@ func (r *projectRepository) GetByID(ctx context.Context, id int) (*Project, erro
 	return &p, nil
 }
 
-func (r *projectRepository) GetAll(ctx context.Context) ([]Project, error) {
+func (r *projectRepository) GetAll(ctx context.Context) ([]postgres.Project, error) {
 	logger.Debug("repo: get all projects")
 
-	var ps []Project
+	var ps []postgres.Project
 	err := r.db.SelectContext(ctx, &ps, "SELECT * FROM projects ORDER BY date_created DESC")
 	if err != nil {
 		logger.Error("repo: select all failed",
@@ -96,7 +99,7 @@ func (r *projectRepository) GetAll(ctx context.Context) ([]Project, error) {
 	return ps, nil
 }
 
-func (r *projectRepository) Update(ctx context.Context, p *Project) error {
+func (r *projectRepository) Update(ctx context.Context, p *postgres.Project) error {
 	logger.Debug("repo: update project",
 		"id", p.ID,
 		"name", p.Name,

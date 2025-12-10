@@ -8,11 +8,12 @@ import (
 	"go.temporal.io/sdk/client"
 )
 
+// Service defines the interface for ticket business logic operations.
 type Service interface {
-	Create(ctx context.Context, t *Ticket) error
-	GetByID(ctx context.Context, id int) (*Ticket, error)
-	GetAll(ctx context.Context) ([]Ticket, error)
-	Update(ctx context.Context, t *Ticket) error
+	Create(ctx context.Context, t *postgres.Ticket) error
+	GetByID(ctx context.Context, id int) (*postgres.Ticket, error)
+	GetAll(ctx context.Context) ([]postgres.Ticket, error)
+	Update(ctx context.Context, t *postgres.Ticket) error
 	Delete(ctx context.Context, id int) error
 }
 
@@ -34,6 +35,12 @@ func (s *ticketService) Create(ctx context.Context, t *Ticket) error {
 	s.log.Info("service: creating ticket")
 
 	// стандартная логика
+// NewService creates a new Service instance.
+func NewService(repo Repository) Service {
+	return &ticketService{repo: repo}
+}
+
+func (s *ticketService) Create(ctx context.Context, t *postgres.Ticket) error {
 	t.Status = "open"
 	err := s.repo.Create(ctx, t)
 	if err != nil {
@@ -67,15 +74,15 @@ func (s *ticketService) Create(ctx context.Context, t *Ticket) error {
 	return nil
 }
 
-func (s *ticketService) GetByID(ctx context.Context, id int) (*Ticket, error) {
+func (s *ticketService) GetByID(ctx context.Context, id int) (*postgres.Ticket, error) {
 	return s.repo.GetByID(ctx, id)
 }
 
-func (s *ticketService) GetAll(ctx context.Context) ([]Ticket, error) {
+func (s *ticketService) GetAll(ctx context.Context) ([]postgres.Ticket, error) {
 	return s.repo.GetAll(ctx)
 }
 
-func (s *ticketService) Update(ctx context.Context, t *Ticket) error {
+func (s *ticketService) Update(ctx context.Context, t *postgres.Ticket) error {
 	return s.repo.Update(ctx, t)
 }
 
