@@ -60,6 +60,18 @@ services:
     networks:
       - feedbacknet
 
+  temporal:
+    image: temporalio/auto-setup:latest
+    container_name: temporal
+    ports:
+      - "7233:7233"
+      - "8233:8233" 
+    environment:
+      - TEMPORAL_UI_ENABLED=true
+    networks:
+      - feedbacknet
+
+
   app:
     build: .
     container_name: innotech_app
@@ -86,6 +98,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+
 
 volumes:
   db_data:

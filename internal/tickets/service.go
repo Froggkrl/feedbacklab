@@ -1,6 +1,12 @@
 package tickets
 
-import "context"
+import (
+	"context"
+	"log/slog"
+	"strconv"
+
+	"go.temporal.io/sdk/client"
+)
 
 type Service interface {
 	Create(ctx context.Context, t *Ticket) error
@@ -11,16 +17,54 @@ type Service interface {
 }
 
 type ticketService struct {
-	repo Repository
+	repo           Repository
+	temporalClient client.Client
+	log            *slog.Logger
 }
 
-func NewService(repo Repository) Service {
-	return &ticketService{repo: repo}
+func NewService(repo Repository, temporalClient client.Client, log *slog.Logger) Service {
+	return &ticketService{
+		repo:           repo,
+		temporalClient: temporalClient,
+		log:            log,
+	}
 }
 
 func (s *ticketService) Create(ctx context.Context, t *Ticket) error {
+	s.log.Info("service: creating ticket")
+
+	// стандартная логика
 	t.Status = "open"
-	return s.repo.Create(ctx, t)
+	err := s.repo.Create(ctx, t)
+	if err != nil {
+		s.log.Error("service: failed to create ticket", slog.String("error", err.Error()))
+		return err
+	}
+
+	// запускаем Temporal workflow НЕ ЛОМАЯ интерфейс
+	workflowOptions := client.StartWorkflowOptions{
+		ID:        "incident_workflow_ticket_" + strconv.Itoa(t.ID),
+		TaskQueue: "incident-task-queue",
+	}
+
+	_, wfErr := s.temporalClient.ExecuteWorkflow(
+		ctx,
+		workflowOptions,
+		"CreateIncidentWorkflow", // имя workflow
+		CreateIncidentInput{
+			TicketID:    t.ID,
+			Title:       t.Title,
+			Description: t.Message,
+			Assignee:    t.AssignedTo, // *string
+		},
+	)
+
+	if wfErr != nil {
+		s.log.Error("service: failed to start workflow", slog.String("error", wfErr.Error()))
+		// не возвращаем ошибку → тикет должен создаваться ВСЕГДА
+	}
+
+	return nil
 }
 
 func (s *ticketService) GetByID(ctx context.Context, id int) (*Ticket, error) {

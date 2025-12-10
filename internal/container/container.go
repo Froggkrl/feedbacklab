@@ -14,14 +14,18 @@ import (
 	"innotech/pkg/db"
 	"innotech/pkg/logger"
 	"log"
-	"log/slog"
 
 	"github.com/jmoiron/sqlx"
+	"go.temporal.io/sdk/client"
+	"log/slog"
 )
 
 type Container struct {
-	Config                    *config.Config
-	DB                        *sqlx.DB
+	Config         *config.Config
+	DB             *sqlx.DB
+	TemporalClient client.Client
+	Log            *slog.Logger
+
 	HealthHandler             *health.Handler
 	TicketHandler             *tickets.Handler
 	TicketChatsHandler        *ticket_chats.Handler
@@ -36,19 +40,31 @@ type Container struct {
 func New() *Container {
 	cfg, err := config.Load()
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("failed to load config: ", err)
 	}
 
+	// global logger
+	logg := logger.NewLogger()
+	slog.SetDefault(logg)
+
+	// DB
 	database, err := db.Connect(cfg.DatabaseURL)
 	if err != nil {
 		log.Fatalf("DB connection failed: %v", err)
 	}
 
+	// TEMPORAL CLIENT
+	temporalClient, err := client.Dial(client.Options{})
+	if err != nil {
+		log.Fatalf("Temporal connection failed: %v", err)
+	}
+
+	// SERVICES + REPOS + HANDLERS
 	healthService := health.NewSelfHealthService()
 	healthHandler := health.NewHandler(healthService)
 
 	ticketRepo := tickets.NewRepository(database)
-	ticketService := tickets.NewService(ticketRepo)
+	ticketService := tickets.NewService(ticketRepo, temporalClient, logg)
 	ticketHandler := tickets.NewHandler(ticketService)
 
 	chatRepo := ticket_chats.NewRepository(database)
@@ -80,8 +96,11 @@ func New() *Container {
 	userProjectHandler := user_projects.NewHandler(userProjectService)
 
 	return &Container{
-		Config:                    cfg,
-		DB:                        database,
+		Config:         cfg,
+		DB:             database,
+		TemporalClient: temporalClient,
+		Log:            logg,
+
 		HealthHandler:             healthHandler,
 		TicketHandler:             ticketHandler,
 		TicketChatsHandler:        chatHandler,
